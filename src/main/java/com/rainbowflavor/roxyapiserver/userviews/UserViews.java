@@ -21,7 +21,7 @@ public class UserViews {
     private Long id;
     @Column(nullable = false)
     private String urlPath;
-    private Integer viewCount = 1;
+    private Integer viewCount = 0;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<UserIp> userIps = new ArrayList<>();

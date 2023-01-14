@@ -41,6 +41,7 @@ public class UserViewsController {
         UserIp userIp = userViews.getContainIp(finalIp).orElseGet(() ->{
                     UserIp newUserIp = new UserIp(finalIp);
                     userViews.getUserIps().add(newUserIp);
+                    userViews.increaseCount();
                     return newUserIp;
         });
 
