@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
 @ContextConfiguration(classes = TestJpaConfig.class)
 class UserViewsTest {
@@ -23,36 +21,28 @@ class UserViewsTest {
     @Test
     @Transactional
     void insertTest(){
-        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        UserViews userViews = repo.findByIpAndUrlPath(IP, PATH)
+        UserViews userViews = repo.findByUrlPath(PATH)
                 .orElseGet(() -> {
-                    UserViews newUserViews = new UserViews(IP, PATH);
+                    UserViews newUserViews = new UserViews(PATH);
                     repo.saveAndFlush(newUserViews);
                     return newUserViews;
                 });
 
         Assertions.assertNotNull(userViews.getId());
-        Assertions.assertEquals(IP,userViews.getIp());
         Assertions.assertEquals(PATH,userViews.getUrlPath());
-        Assertions.assertNotNull(userViews.getCreatedAt());
-        Assertions.assertNotNull(userViews.getUpdatedAt());
     }
 
     @Test
     @Transactional
     void emptyIpInsert(){
-        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        UserViews userViews = repo.findByIpAndUrlPath("", PATH)
+        UserViews userViews = repo.findByUrlPath(PATH)
                 .orElseGet(() -> {
-                    UserViews newUserViews = new UserViews("", PATH);
+                    UserViews newUserViews = new UserViews(PATH);
                     repo.saveAndFlush(newUserViews);
                     return newUserViews;
                 });
 
         Assertions.assertNotNull(userViews.getId());
-        Assertions.assertEquals("",userViews.getIp());
         Assertions.assertEquals(PATH,userViews.getUrlPath());
-        Assertions.assertNotNull(userViews.getCreatedAt());
-        Assertions.assertNotNull(userViews.getUpdatedAt());
     }
 }

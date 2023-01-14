@@ -5,9 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -18,23 +22,39 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/v1/views")
 public class UserViewsController {
     private final UserViewsRepository repo;
-
     @Transactional
     @PostMapping
     public ResponseEntity<ViewResponse> getViewsCount(@RequestBody @Validated ViewsRequest request){
-        log.info("ip:{}, path:{}", request.getIp(), request.getUrlPath());
-        UserViews userViews = repo.findByIpAndUrlPath(request.getIp(), request.getUrlPath())
-                .orElseGet(() -> {
-                    UserViews newUserViews = new UserViews(request.getIp(), request.getUrlPath());
-                    UserViews userViews1 = repo.saveAndFlush(newUserViews);
-                    return newUserViews;
-                });
 
-        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        if(userViews.getUpdatedAt().isBefore(oneHourAgo)){
-            userViews.getViewCountAfterIncrease();
+        HttpServletRequest servletRequest = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String ip = servletRequest.getHeader("CF-Connecting-IP");
+        if (StringUtils.hasText(ip) == false) {
+            ip = "";
+        }
+        log.info("ip:{}, path:{}", ip, request.getUrlPath());
+
+        UserViews userViews = repo.findByUrlPath(request.getUrlPath())
+                .orElseGet(() -> repo.save(new UserViews(request.getUrlPath())));
+
+        final String finalIp = ip;
+
+        UserIp userIp = userViews.getContainIp(finalIp).orElseGet(() ->{
+                    UserIp newUserIp = new UserIp(finalIp);
+                    userViews.getUserIps().add(newUserIp);
+                    return newUserIp;
+        });
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime oneHourAgo = now.minusHours(1);
+
+        if(!userIp.getIp().equals("") && userIp.getUpdatedAt().isBefore(oneHourAgo)){
+            userViews.increaseCount();
+            userIp.updateDateToNow(LocalDateTime.now());
+        }else{
+            userViews.increaseCount();
+            userIp.updateDateToNow(LocalDateTime.now());
         }
 
-        return ResponseEntity.ok(new ViewResponse(userViews.getIp(), userViews.getUrlPath(), userViews.getViewCount()));
+        return ResponseEntity.ok(new ViewResponse(userIp.getIp(), userViews.getUrlPath(), userViews.getViewCount()));
     }
 }

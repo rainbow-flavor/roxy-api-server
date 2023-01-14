@@ -3,43 +3,36 @@ package com.rainbowflavor.roxyapiserver.userviews;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-@EntityListeners(AuditingEntityListener.class)
 @Table(uniqueConstraints =
 @UniqueConstraint(
-        name = "UNIQUE_KEY_IP_AND_URL_PATH",
-        columnNames = {"ip", "urlPath"}))
+        name = "UNIQUE_KEY_URL_PATH",
+        columnNames = {"urlPath"}))
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class UserViews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true)
-    private String ip;
     @Column(nullable = false)
     private String urlPath;
-
     private Integer viewCount = 1;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<UserIp> userIps = new ArrayList<>();
 
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    public UserViews(String ip, String urlPath) {
-        this.ip = ip;
+    public UserViews(String urlPath) {
         this.urlPath = urlPath;
     }
-
-    public Integer getViewCountAfterIncrease(){
-        return this.viewCount++;
+    public Optional<UserIp> getContainIp(String ip){
+        return this.userIps.stream().filter(i -> i.getIp().equals(ip)).findAny();
+    }
+    public void increaseCount(){
+        this.viewCount++;
     }
 }
