@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Tag(name="views")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/views")
+@RequestMapping("/api/v1/views")
 public class UserViewsController {
     private final UserViewsRepository repo;
 
