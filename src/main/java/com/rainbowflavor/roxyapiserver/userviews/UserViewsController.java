@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@CrossOrigin("*")
 @Tag(name="views")
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +18,7 @@ public class UserViewsController {
     private final UserViewsRepository repo;
 
     @Transactional
-    @GetMapping
+    @PostMapping
     public ResponseEntity<ViewResponse> getViewsCount(@RequestBody @Validated ViewsRequest request){
 
         UserViews userViews = repo.findByIpAndUrlPath(request.getIp(), request.getUrlPath())
