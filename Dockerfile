@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11
 WORKDIR /app/
 COPY . .
-CMD ["./mvnw", "clean", "package"]
+RUN ./mvnw clean package
 
 FROM adoptopenjdk/openjdk11
 WORKDIR /deploy/
