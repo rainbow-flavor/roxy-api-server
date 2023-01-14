@@ -2,6 +2,7 @@ package com.rainbowflavor.roxyapiserver.userviews;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @CrossOrigin("*")
 @Tag(name="views")
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class UserViewsController {
     @Transactional
     @PostMapping
     public ResponseEntity<ViewResponse> getViewsCount(@RequestBody @Validated ViewsRequest request){
-
+        log.info("ip:{}, path:{}", request.getIp(), request.getUrlPath());
         UserViews userViews = repo.findByIpAndUrlPath(request.getIp(), request.getUrlPath())
                 .orElseGet(() -> {
                     UserViews newUserViews = new UserViews(request.getIp(), request.getUrlPath());
