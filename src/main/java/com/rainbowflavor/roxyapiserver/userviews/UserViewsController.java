@@ -51,8 +51,10 @@ public class UserViewsController {
             userViews.increaseCount();
             userIp.updateDateToNow(LocalDateTime.now());
         }else{
-            userViews.increaseCount();
-            userIp.updateDateToNow(LocalDateTime.now());
+            if (userIp.getIp().equals("")) {
+                userViews.increaseCount();
+                userIp.updateDateToNow(LocalDateTime.now());
+            }
         }
 
         return ResponseEntity.ok(new ViewResponse(userIp.getIp(), userViews.getUrlPath(), userViews.getViewCount()));
