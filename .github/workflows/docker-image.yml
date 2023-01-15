@@ -23,17 +23,17 @@ jobs:
           push: true
           tags: ${{ secrets.IROHUB_URL }}/roxy-api-server:latest
   
-#   reload:
-#     needs: image-build-push
-#     name: Deploy
-#     runs-on: ubuntu-latest
-#     steps:
-#     -
-#       name: pull and apply
-#       uses: appleboy/ssh-action@v0.1.6
-#       with: 
-#         host: ${{ secrets.MASTER_HOST }}
-#         username: ${{ secrets.MASTER_USERNAME }}
-#         password: ${{ secrets.MASTER_PASSWORD }}
-#         port: ${{ secrets.MASTER_PORT }}
-#         script: cd ${{ secrets.ROXY_API_DEP_PATH }} && ${{ secrets.ROXY_API_DEP }}
+  reload:
+    needs: image-build-push
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: pull and apply
+      uses: appleboy/ssh-action@v0.1.6
+      with: 
+        host: ${{ secrets.MASTER_HOST }}
+        username: ${{ secrets.MASTER_USERNAME }}
+        password: ${{ secrets.MASTER_PASSWORD }}
+        port: ${{ secrets.MASTER_PORT }}
+        script: cd ${{ secrets.ROXY_DEP_PATH }} && ${{ secrets.ROXY_DEP }}
