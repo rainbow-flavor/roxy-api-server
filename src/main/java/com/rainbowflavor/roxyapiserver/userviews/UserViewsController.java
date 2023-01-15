@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Slf4j
-@CrossOrigin("*")
+@CrossOrigin("https://roxy.iro.ooo")
 @Tag(name="views")
 @RequiredArgsConstructor
 @RestController
