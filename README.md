@@ -1,7 +1,11 @@
-# Roxy API Server
+# Roxy API Server 
 roxy api server 는 roxy-blog project 의 api 서버입니다.  
 roxy-blog project 는 [다음](https://github.com/rainbow-flavor/roxy-blog)을 참조하세요.  
 호스팅 되는 블로그는 [여기](https://roxy.iro.ooo)에서 확인할 수 있습니다.
+
+## 상태
+![build](https://github.com/rainbow-flavor/roxy-api-server/actions/workflows/docker-image.yml/badge.svg)
+![Known Vulnerabilities](https://snyk.io/test/github/rainbow-flavor/roxy-api-server/badge.svg)
 
 ## 포함 기능 리스트
 ### 조회 수 카운팅 기능
