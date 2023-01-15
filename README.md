@@ -6,7 +6,7 @@ roxy-blog project 는 [다음](https://github.com/rainbow-flavor/roxy-blog)을 �
 ## 상태
 ![build](https://github.com/rainbow-flavor/roxy-api-server/actions/workflows/docker-image.yml/badge.svg)
 ![Known Vulnerabilities](https://snyk.io/test/github/rainbow-flavor/roxy-api-server/badge.svg)
-
+![hits](https://img.shields.io/endpoint?logo=Fireship&url=https%3A%2F%2Fhits.dwyl.com%2Frainbow-flavor%2Froxy-api-server.json)
 ## 포함 기능 리스트
 ### 조회 수 카운팅 기능
 클라우드 플레어에서 삽입하는 CF-Connecting-IP header 를 참조하여 IP 및 시간을 카운팅 합니다.
