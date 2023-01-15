@@ -1,0 +1,21 @@
+# Roxy API Server
+
+## 포함 기능 리스트
+### 조회 수 카운팅 기능
+클라우드 플레어에서 삽입하는 CF-Connecting-IP header 를 참조하여 IP 및 시간을 카운팅 합니다.
+1시간에 한번 같은 경로의 Path 요청에 대해 조회 수를 카운팅합니다. 
+
+IP 를 확인할 수 없는 경우 공백으로 치환하여 시간에 제한 없이 카운트 합니다.
+
+## 빌드 및 배포
+### 도커라이징 
+1. 빌드는 Github Self Host Runner 를 사용하여 진행됩니다. 
+2. 소스는 Dockerfile 을 기반으로 Docker Image 로 빌드합니다.
+3. 빌드된 이미지는 Private docker registry 서버에 업로드 됩니다.
+
+### 배포
+1. private docker registry 에 이미지가 업로드되면
+2. Bare-metal 로 구축된 Kubernetes Cluster 에서 apply 쉘 스크립트가 실행됩니다.
+3. 자동으로 갱신된 이미지를 긁어오며 정의된 deployment 와 service 가 재기동됩니다.
+
+
