@@ -1,5 +1,5 @@
 # Roxy API Server
-roxy api server 는 roxy-blog project 의 api 서버입니다. 
+roxy api server 는 roxy-blog project 의 api 서버입니다.  
 roxy-blog project 는 [다음](https://github.com/rainbow-flavor/roxy-blog)을 참조하세요.  
 호스팅 되는 블로그는 [여기](https://roxy.iro.ooo)에서 확인할 수 있습니다.
 
