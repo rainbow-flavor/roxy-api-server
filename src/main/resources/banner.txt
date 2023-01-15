@@ -1,0 +1,18 @@
+ ,ggggggggggg,      _,gggggg,_      ,ggg,          ,gg ,ggg,         gg
+dP"""88""""""Y8,  ,d8P""d8P"Y8b,   dP"""Y8,      ,dP' dP""Y8a        88
+Yb,  88      `8b ,d8'   Y8   "8b,dPYb,_  "8b,   d8"   Yb, `88        88
+ `"  88      ,8P d8'    `Ybaaad88P' `""    Y8,,8P'     `"  88        88
+     88aaaad8P"  8P       `""""Y8           Y88"           88        88
+     88""""Yb,   8b            d8          ,888b           88        88
+     88     "8b  Y8,          ,8P         d8" "8b,         88       ,88
+     88      `8i `Y8,        ,8P'       ,8P'    Y8,        Y8b,___,d888
+     88       Yb, `Y8b,,__,,d8P'       d8"       "Yb,       "Y88888P"88,
+     88        Y8   `"Y8888P"'       ,8P'          "Y8           ,ad8888
+                                                                d8P" 88
+                                                              ,d8'   88
+                                                              d8'    88
+                                                              88     88
+                                                              Y8,_ _,88
+                                                               "Y888P"
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
