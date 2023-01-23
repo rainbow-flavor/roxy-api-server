@@ -13,7 +13,6 @@ import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
-@CrossOrigin("https://roxy.iro.ooo")
 @Tag(name = "comment")
 @RestController
 @RequestMapping("/api/v1/comment")
