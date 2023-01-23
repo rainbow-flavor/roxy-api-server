@@ -1,6 +1,8 @@
 package com.rainbowflavor.roxyapiserver.comment;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,10 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CommentResponse>> getCommentByPath(@RequestParam String path) {
+    public ResponseEntity<Response<List<CommentResponse>>> getCommentByPath(@RequestParam String path) {
         List<CommentResponse> commentResponses = commentService.findByPath(path);
-        return ResponseEntity.ok(commentResponses);
+
+        return ResponseEntity.ok(new Response<>(commentResponses));
     }
 
     @GetMapping("/{id}")
@@ -61,5 +64,19 @@ public class CommentController {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(CommentNotFoundException::new);
         return !passwordEncoder.matches(inputPassword, comment.getPassword());
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @Data
+    static class Response<T extends List<CommentResponse>>{
+        T data;
+        private Integer count;
+
+        public Response(T data) {
+            this.data = data;
+            if (data != null) {
+                count = data.size();
+            }
+        }
     }
 }
