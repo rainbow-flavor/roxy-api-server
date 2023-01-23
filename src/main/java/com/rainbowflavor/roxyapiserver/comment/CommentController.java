@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,7 +32,6 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<Response<List<CommentResponse>>> getCommentByPath(@RequestParam String path) {
         List<CommentResponse> commentResponses = commentService.findByPath(path);
-
         return ResponseEntity.ok(new Response<>(commentResponses));
     }
 
@@ -41,8 +42,8 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Long id,
-                                           @RequestBody CommentRequest commentRequest) {
-        if (validate(commentRequest.getCheckingPassword(), id)) {
+                                           @RequestBody String password) {
+        if (validate(password, id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         commentService.deleteComment(id);
