@@ -16,6 +16,6 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost","http://localhost:3000","https://roxy.iro.ooo");
+        registry.addMapping("/**").allowedMethods("POST", "GET", "PUT", "DELETE").allowedOrigins("http://localhost","http://localhost:3000","https://roxy.iro.ooo");
     }
 }
