@@ -21,6 +21,11 @@
 </properties>
 <dependencies>
     <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-configuration-processor</artifactId>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${org.mapstruct.version}</version>
@@ -59,11 +64,6 @@
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <scope>runtime</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-configuration-processor</artifactId>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.projectlombok</groupId>
@@ -126,6 +126,12 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok-mapstruct-binding</artifactId>
                         <version>0.2.0</version>
+                    </path>
+
+                    <!-- configuration processor notice to intellij -->
+                    <path>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-configuration-processor</artifactId>
                     </path>
                 </annotationProcessorPaths>
             </configuration>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -29,5 +30,12 @@ public class CommentRequest {
     @JsonGetter
     public String getPassword() {
         return this.password;
+    }
+
+    public String getUsername() {
+        if (StringUtils.hasText(this.username)) {
+            return this.username;
+        }
+        return "anonymous";
     }
 }
