@@ -44,18 +44,8 @@ public class UserViewsController {
                     return newUserIp;
         });
 
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime oneHourAgo = now.minusHours(1);
-
-        if(!userIp.getIp().equals("") && userIp.getUpdatedAt().isBefore(oneHourAgo)){
-            userViews.increaseCount();
-            userIp.updateDateToNow(LocalDateTime.now());
-        }else{
-            if (userIp.getIp().equals("")) {
-                userViews.increaseCount();
-                userIp.updateDateToNow(LocalDateTime.now());
-            }
-        }
+        userViews.increaseCount();
+        userIp.updateDateToNow(LocalDateTime.now());
 
         return ResponseEntity.ok(new ViewResponse(userIp.getIp(), userViews.getUrlPath(), userViews.getViewCount()));
     }
